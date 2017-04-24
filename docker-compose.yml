@@ -1,0 +1,38 @@
+#
+# © Copyright IBM Corporation 2017.
+# This is licensed under the following license.
+# The Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+# U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+version: '2.1'
+services:
+    ucd-server:
+        container_name: ucd-server
+        image: ibmcom/ucds
+        ports:
+            - 8443:8443
+            - 7918:7918
+    ucd-agent:
+        container_name: ucd-agent
+        image: ibmcom/ucda
+        depends_on:
+            - ucd-server
+    teamcity-server:
+        container_name: teamcity-server
+        image: jetbrains/teamcity-server
+        volumes:
+            - ~/teamcity_docker/server/datadir:/data/teamcity_server/datadir
+            - ~/teamcity_docker/server/logs:/opt/teamcity/logs
+        ports:
+            - 8111:8111
+    # 4/24/2017- Error docker-compose that makes the SERVER_URL's port to be unrecognizable
+    # https://github.com/JetBrains/teamcity-docker-minimal-agent/issues/5
+    # teamcity-agent:
+    #     container_name: teamcity-agent
+    #     image: jetbrains/teamcity-agent
+    #     environment:
+    #         - SERVER_URL="http://teamcity-server:8111"
+    #     volumes:
+    #         - ~/teamcity_docker/agent/conf:/data/teamcity_agent/conf
+    #     depends_on:
+    #         - teamcity-server
