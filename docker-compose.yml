@@ -19,20 +19,18 @@ services:
             - ucd-server
     teamcity-server:
         container_name: teamcity-server
-        image: jetbrains/teamcity-server
+        image: jetbrains/teamcity-server:10.0.4
         volumes:
             - ~/teamcity_docker/server/datadir:/data/teamcity_server/datadir
             - ~/teamcity_docker/server/logs:/opt/teamcity/logs
         ports:
             - 8111:8111
-    # 4/24/2017- Error docker-compose that makes the SERVER_URL's port to be unrecognizable
-    # https://github.com/JetBrains/teamcity-docker-minimal-agent/issues/5
-    # teamcity-agent:
-    #     container_name: teamcity-agent
-    #     image: jetbrains/teamcity-agent
-    #     environment:
-    #         - SERVER_URL="http://teamcity-server:8111"
-    #     volumes:
-    #         - ~/teamcity_docker/agent/conf:/data/teamcity_agent/conf
-    #     depends_on:
-    #         - teamcity-server
+    teamcity-agent:
+        container_name: teamcity-agent
+        image: jetbrains/teamcity-minimal-agent
+        environment:
+            - SERVER_URL=teamcity-server:8111
+        volumes:
+            - ~/teamcity_docker/agent/conf:/data/teamcity_agent/conf
+        depends_on:
+            - teamcity-server
