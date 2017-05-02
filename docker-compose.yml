@@ -27,7 +27,7 @@ services:
             - 8111:8111
     teamcity-agent:
         container_name: teamcity-agent
-        image: jetbrains/teamcity-minimal-agent
+        image: jetbrains/teamcity-agent
         environment:
             - SERVER_URL=teamcity-server:8111
         volumes:
