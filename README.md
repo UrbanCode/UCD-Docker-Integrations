@@ -1,21 +1,13 @@
-# TeamCity and IBM UrbanCode Deploy Demo
+# IBM UrbanCode Deploy Docker Integrations Repository
+---
 
-Summary: Small docker-compose file to set up a IBM UrbanCode server, IBM UrbanCode agent, TeamCity server, and TeamCity agent.
+### License
+These templates are protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
 
-### Versions
-- Trial UrbanCode Server and Agent: v6.2.2.0.830952
-- TeamCity Server: v10.0.4
-- TeamCity Agent: latest
+### Summary
+This repository holds various Docker Compose files that build small demo environments. View each folder for more specific information on each integration. If you wish to develop your own docker-compose files, please use the Server, Agent, or Relay images from the below public images.
 
-### Requirements
-Docker version 1.12+
-
-### Run
-`docker-compose up [-d]`
-
-### Sources
-- [IBM UrbanCode Server Docker Installation](https://hub.docker.com/r/ibmcom/ucds/)
-- [IBM UrbanCode Server Docker Installation](https://hub.docker.com/r/ibmcom/ucda/)
-- [TeamCity Server Docker Installation](https://hub.docker.com/r/jetbrains/teamcity-server/)
-- [TeamCity Agent Docker Installation](https://hub.docker.com/r/jetbrains/teamcity-agent/)
-- [TeamCity Agent Manual Installation](https://confluence.jetbrains.com/display/TCD10/Setting+up+and+Running+Additional+Build+Agents#SettingupandRunningAdditionalBuildAgents-InstallingAdditionalBuildAgents)
+### UrbanCode Docker Images
+- [IBM UrbanCode Server Docker](https://hub.docker.com/r/ibmcom/ucds/)
+- [IBM UrbanCode Agent Docker](https://hub.docker.com/r/ibmcom/ucda/)
+- [IBM UrbanCode Relay Docker](https://hub.docker.com/r/ibmcom/ucdr/)
