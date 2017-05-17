@@ -2,9 +2,9 @@
 
 ## User Properties
 ## ONLY MODIFY THESE
-JENKINS_SERVER="http://192.168.99.100:8080"
+JENKINS_SERVER="http://localhost:8080"
 USERNAME="admin"
-PASSWORD="8c15c60c57ab4e1abe7f0b4e06d27ce9"
+PASSWORD="PASSWORD"
 
 ####################################################################################################
 # General Properties
@@ -17,23 +17,15 @@ echo "Downloading jenkins-cli.jar..."
 mkdir downloads
 curl -o  $JENKINS_CLI_JAR $JENKINS_SERVER/jnlpJars/jenkins-cli.jar
 
-echo "Installing Jenkins Publisher plugin...."
-java -jar $JENKINS_CLI_JAR -s $JENKINS_SERVER install-plugin $FTP_SITE/jenkins-ud-plugin/$PUBLISHER --username $USERNAME --password $PASSWORD
-mv $PUBLISHER downloads/$PUBLISHER
-
-echo "Installing Jenkins Pipeline plugin...."
-java -jar $JENKINS_CLI_JAR -s $JENKINS_SERVER install-plugin $FTP_SITE/jenkins-pipeline-ud-plugin/$PIPELINE -restart --username $USERNAME --password $PASSWORD
-mv $PIPELINE downloads/$PIPELINE
-
-echo "Jenkins is restarting..."
-## WAIT FOR SERVER ONLINE LOOP
-echo "It's back!"
-
 echo "Installing simple Publisher template...."
 java -jar $JENKINS_CLI_JAR -s $JENKINS_SERVER create-job datapower-publisher --username $USERNAME --password $PASSWORD < jenkins-templates/template-publisher.xml
 
 echo "Installing simple Pipeline template...."
 java -jar $JENKINS_CLI_JAR -s $JENKINS_SERVER create-job datapower-pipeline --username $USERNAME --password $PASSWORD < jenkins-templates/template-pipeline.xml
 
-echo "Configure the UCD Server here: " + $JENKINS_SERVER + "/configure"
+echo "Configure the two UCD Servers for the Pipeline and Publisher plugins here: " + $JENKINS_SERVER + "/configure"
+echo "Name the configurations 'Docker IBM UrbanCode Deploy Server'."
+echo ""
+
 echo "Configure the Ant Build tool here: " + $JENKINS_SERVER + "/configureTools"
+echo "Name configuration 'default'."

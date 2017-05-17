@@ -12,10 +12,14 @@ Summary: Small docker-compose file to set up a IBM UrbanCode server, IBM UrbanCo
 ### Run
 `docker-compose up [-d]`
 
-### Initialize IBM UrbanCode Deploy and Jenkins Servers
-`./InitializeScript.sh`
+### Install the Jenkins Plugins
+`./installPlugins.sh`
 
-This script will install the two jenkins plugins and create two jobs.
+
+### Install sample Jenkins Projects
+`./installTemplates.sh`
+
+This script will install the two jenkins plugins and create two projects.
 
 You will need to manually create:
 - `UCD - Pipeline` and `UCD - Publisher` empty components in IBM UrbanCode Deploy.
@@ -26,6 +30,10 @@ You will need to manually create:
 - IBM UrbanCode Server - admin:admin
 - Jenkins - Initialized at start up.
 
+### Tutorials and Documentation
+- [Jenkins Publisher Simplified Tutorial](https://developer.ibm.com/urbancode/plugindoc/ibmucd/jenkins-pipeline-formerly-jenkins-2-0/2-2/usage/)
+- Jenkins Pipeline Script Tutorial - Coming soon!
+- [Jenkins Pipeline Syntax Overview](https://developer.ibm.com/urbancode/plugindoc/ibmucd/jenkins-pipeline-formerly-jenkins-2-0/2-2/jenkins-pipeline-syntax-overview/)
 ### Sources
 - [IBM UrbanCode Server Docker Installation](https://hub.docker.com/r/ibmcom/ucds/)
 - [IBM UrbanCode Agent Docker Installation](https://hub.docker.com/r/ibmcom/ucda/)
