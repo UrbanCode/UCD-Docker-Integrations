@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<flow-definition plugin="workflow-job@2.10">
+    <actions/>
+    <description>Simple Ant Build using the DataPower plugin.</description>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
+            <projectUrl>
+                https://github.com/ibm-datapower/datapower-configuration-manager/
+            </projectUrl>
+            <displayName/>
+        </com.coravy.hudson.plugins.github.GithubProjectProperty>
+        <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+            <triggers/>
+        </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+    </properties>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.30">
+        <script>
+            node { stage ('Checkout...') { checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ibm-datapower/datapower-configuration-manager/']]]) } stage ('Build...') { env.PATH = "${tool 'Default'}/bin:${env.PATH}" sh 'ant' } stage ('Push to UCD...') { step([$class: 'UCDeployPublisher', siteName: 'Docker IBM UrbanCode Deploy Server', component: [ $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock', componentName: 'UCD - Pipeline', delivery: [ $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push', pushVersion: '${BUILD_NUMBER}', baseDir: '.', fileIncludePatterns: '/var/jenkins_home/workspace/datapower-pipeline/dist/*', fileExcludePatterns: '', pushProperties: 'jenkins.server=Local\njenkins.reviewed=false', pushDescription: 'Pushed from Jenkins', pushIncremental: false ] ] ]) } }
+        </script>
+        <sandbox>false</sandbox>
+    </definition>
+    <triggers/>
+</flow-definition>

@@ -1,0 +1,29 @@
+#
+# © Copyright IBM Corporation 2017.
+# This is licensed under the following license.
+# The Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+# U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+version: '2.1'
+services:
+    ucd-server:
+        container_name: ucd-server
+        image: ibmcom/ucds
+        ports:
+            - 8443:8443
+            - 7918:7918
+    ucd-agent:
+        container_name: ucd-agent
+        image: ibmcom/ucda
+        depends_on:
+            - ucd-server
+    jenkins-server:
+        container_name: jenkins-server
+        image: jenkinsci/jenkins:lts
+        environment:
+            JAVA_OPTS: "-Djava.awt.headless=true"
+        volumes:
+            - /var/jenkins_home
+        ports:
+            - 8080:8080
+            - 50000:50000
