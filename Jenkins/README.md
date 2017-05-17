@@ -14,10 +14,12 @@ Summary: Small docker-compose file to set up a IBM UrbanCode server, IBM UrbanCo
 
 ### Install the Jenkins Plugins
 `./installPlugins.sh`
+Note: Update the server URL and credentials in the script.
 
 
 ### Install sample Jenkins Projects
 `./installTemplates.sh`
+Note: Update the server URL and credentials in the script.
 
 This script will install the two jenkins plugins and create two projects.
 
